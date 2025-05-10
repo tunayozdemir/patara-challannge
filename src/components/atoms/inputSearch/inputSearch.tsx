@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import clsx from "clsx"
 import Image from 'next/image'
-import { Input } from "@/components/ui/input"
+import { Input } from "@/components/atoms"
 import { motion } from "framer-motion"
 import { InputSearchProps } from "./types"
 import { SearchIcon, macK } from '@/assets/icons'
