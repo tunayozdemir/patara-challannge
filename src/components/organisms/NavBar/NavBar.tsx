@@ -1,11 +1,9 @@
 "use client";
 import React from 'react'
+import clsx from "clsx"
 import { Button } from "@/components/atoms/button";
-import Image from "next/image";
-import { motion } from "framer-motion";
-
-import { LogoText, InputSearch } from '@/components/atoms'
 import { HamburgerButton } from '@/components/molecules'
+import { LogoText, InputSearch, NotificationBell, Setting } from '@/components/atoms'
 import { navHeaderClass, navLeftClass, navButtonWrapperClass } from './classnames'
 
 const NavLinks = () => {
@@ -16,13 +14,14 @@ const NavLinks = () => {
         <LogoText />
       </div>
 
-      <InputSearch
-        placeholder='Enter Accounts, Platforms, NFTs, Token'
-        type='text'
-      />
+      <InputSearch placeholder='Enter Accounts, Platforms, NFTs, Token' type='text' />
 
-      <div className={navButtonWrapperClass}>
-        <Button variant="default">Sign up</Button>
+      <div className='hidden md:block'>
+        <div className={clsx(navButtonWrapperClass, 'flex items-center gap-2')}>
+          <NotificationBell />
+          <Setting />
+          <Button className='h-[40px] max-w-[170px]' variant="customBlue" text='Connect/Sign in' />
+        </div>
       </div>
     </header>
   )

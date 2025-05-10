@@ -1,13 +1,12 @@
 export const navHeaderClass = `
-  w-full 
-  flex flex-row 
+  w-full
+  flex flex-wrap md:flex-nowrap
   gap-4 
   px-6 
   py-[19.5px]
-  justify-between 
-  items-center 
-  border-b 
-  border-muted 
+  items-center
+  justify-between
+
   bg-background
 `;
 
@@ -20,6 +19,5 @@ export const navLeftClass = `
 `;
 
 export const navButtonWrapperClass = `
-  hidden 
-  md:block
+
 `;

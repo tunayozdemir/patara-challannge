@@ -1,2 +1,4 @@
 export { default as LogoText } from './logo'
 export { default as InputSearch } from './inputSearch/inputSearch'
+export { default as NotificationBell } from './notificationBell/notificationBell'
+export { default as Setting } from './setting/setting'
