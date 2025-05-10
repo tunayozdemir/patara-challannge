@@ -3,10 +3,10 @@ import { LoginCard } from './LoginCard'
 
 const LoginPage = () => {
   return (
-    <main className="relative flex items-center justify-center  overflow-hidden ">
+    <div className="relativ flex items-center justify-center min-h-screen">
       <BackgroundIcons />
-      {/* <LoginCard /> */}
-    </main>
+      <LoginCard />
+    </div>
   )
 }
 

@@ -1,58 +1,83 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
-import { A, C, F, G, M, P, S, W } from '@/assets/icons'
 import { useEffect, useState } from 'react'
 
 const iconPositions = [
-  { icon: P, left: '15%', top: '15%' },
-  { icon: S, left: '12%', top: '40%' },
-  { icon: F, left: '25%', top: '58%' },
-  { icon: G, left: '8%', top: '83%' },
-  { icon: M, left: '90%', top: '15%' },
-  { icon: C, left: '70%', top: '36%' },
-  { icon: W, left: '85%', top: '56%' },
-  { icon: A, left: '80%', top: '80%' },
+  { icon: 'P', xRatio: -0.39, yRatio: -0.37 },
+  { icon: 'S', xRatio: -0.43, yRatio: -0.09 },
+  { icon: 'F', xRatio: -0.28, yRatio: 0.05 },
+  { icon: 'G', xRatio: -0.44, yRatio: 0.31 },
+  { icon: 'M', xRatio: 0.40, yRatio: -0.35 },
+  { icon: 'C', xRatio: 0.20, yRatio: -0.16 },
+  { icon: 'W', xRatio: 0.35, yRatio: 0.03 },
+  { icon: 'A', xRatio: 0.32, yRatio: 0.28 },
 ]
 
 export const BackgroundIcons = () => {
   const [mounted, setMounted] = useState(false)
+  const [viewport, setViewport] = useState({ width: 0, height: 0 })
 
   useEffect(() => {
-    setMounted(true)
+    const handleResize = () => {
+      setViewport({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      })
+    }
+
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
+  useEffect(() => {
+    if (viewport.width > 0) {
+      setMounted(true)
+    }
+  }, [viewport])
+
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none blur-[2px]">
-      {iconPositions.map(({ icon, left, top }, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={mounted ? { opacity: 0.5, scale: 1 } : {}}
-          transition={{ delay: 0.2 + index * 0.05, duration: 0.6, ease: 'easeOut' }}
-          style={{ position: 'absolute', left, top }}
-        >
-          <div className="
-            w-[70px] 
-            h-[70px] 
-            rounded-full 
-            p-2 
-            flex 
-            items-center 
-            justify-center 
-            bg-gradient-to-b 
-          from-white/30
-           to-black/40 
-            shadow-[inset_0_8px_14px_rgba(255,255,255,0.25)] 
-            shadow-xl 
-            backdrop-blur-sm
-            "
+    <div className="fixed inset-0 z-0 pointer-events-none blur-[3px]">
+      {iconPositions.map(({ icon, xRatio, yRatio }, index) => {
+        const x = viewport.width * xRatio
+        const y = viewport.height * yRatio
+
+        return (
+          <motion.div
+            key={index}
+            initial={{ x: 0, y: 0, opacity: 0, scale: 0.4 }}
+            animate={
+              mounted
+                ? { x, y, opacity: 0.5, scale: 1 }
+                : {}
+            }
+            transition={{
+              delay: 0.1 + index * 0.08,
+              duration: 0.7,
+              ease: 'easeOut',
+            }}
+            className="absolute left-1/2 top-1/2"
           >
-            <Image src={icon} alt="bg-icon" width={50} height={50} />
-          </div>
-        </motion.div>
-      ))}
+            <div className="
+              w-[70px] 
+              h-[70px] 
+              rounded-full 
+              flex 
+              items-center 
+              justify-center 
+              bg-gradient-to-b
+            from-white/30 to-black/40
+              shadow-xl 
+              backdrop-blur-sm
+            text-white text-2xl 
+              font-bold
+            ">
+              <span className='text-[32px]'>{icon}</span>
+            </div>
+          </motion.div>
+        )
+      })}
     </div>
   )
 }

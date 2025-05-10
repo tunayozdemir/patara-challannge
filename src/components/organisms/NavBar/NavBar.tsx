@@ -13,9 +13,7 @@ const NavLinks = () => {
         <HamburgerButton />
         <LogoText />
       </div>
-
       <InputSearch placeholder='Enter Accounts, Platforms, NFTs, Token' type='text' />
-
       <div className='hidden md:block'>
         <div className={clsx(navButtonWrapperClass, 'flex items-center gap-2')}>
           <NotificationBell />
