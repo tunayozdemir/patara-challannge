@@ -1,11 +1,12 @@
-export type EarningsRow = {
-  id: string
-  account: string
-  avatar: string | any
-  amountIn: string
-  amountOut: string
-  price: string
-  value: string
-  earnedFee: string
-  time: string
+export interface EarningsRow {
+  id: string;
+  account: string;
+  avatar: React.ReactNode;
+  amountIn: string;
+  amountOut: string;
+  price: string;
+  value: string;
+  earnedFee: string;
+  time: string; 
+  date: string;
 }

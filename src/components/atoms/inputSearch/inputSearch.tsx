@@ -35,7 +35,7 @@ const InputSearch: React.FC<InputSearchProps> = ({
 
   return (
     <div
-      className="relative w-full max-w-[464px]"
+      className="relative w-full "
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

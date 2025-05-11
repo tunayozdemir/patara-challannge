@@ -27,9 +27,9 @@ const ReferralLink = () => {
 
   return (
     <div className='w-full flex flex-col'>
-      <div className='pt-[24px] pr-[23px] pb-[24px] pl-[16px] bg-[#282828] rounded-xl'>
+      <div className='pt-[24px] pr-[23px] pb-[24px] pl-[16px] bg-[#282828] rounded-xl  h-[96px]'>
         <span className='text-[#808080] text-[14px]'>Your Referral Link</span>
-        <p className='text-[#FFFFFF] text-[18px]'>{referralAddress}</p>
+        <p className='text-[#FFFFFF] text-[14px] sm:text-[16px] md:text-[18px] break-all sm:truncate max-w-full'>{referralAddress}</p>
       </div>
 
       <div className='w-full flex flex-row gap-4 mt-[20px]'>

@@ -3,4 +3,6 @@ export const bellWrap = `
     p-[8px]
     rounded-xl
     cursor-pointer
+    h-[40px]
+    w-[40px]
 `

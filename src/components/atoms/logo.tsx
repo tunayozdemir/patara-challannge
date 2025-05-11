@@ -4,9 +4,9 @@ import { LogoText, LogoImage } from '@/assets/icons'
 
 const Logo = () => {
   return (
-    <div className='flex flex-row gap-2 hidden md:flex text-sm text-muted-foreground'>
-      <Image src={LogoImage} alt='LogoImage' />
-      <Image src={LogoText} alt='LogoText' />
+    <div className='flex-row gap-2 hidden md:flex text-sm text-muted-foreground'>
+      <Image src={LogoImage} alt='LogoImage' width={32} height={32} />
+      <Image src={LogoText} alt='LogoText' width={100} height={32} />
     </div>
   )
 }

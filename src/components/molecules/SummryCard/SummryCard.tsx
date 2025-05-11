@@ -20,10 +20,10 @@ const SummryCard = ({ items }: Props) => {
   const IconComponent = (Icons as any)[items.icon] // Dinamik ikon çeker
 
   return (
-    <div className='w-full p-[18px] bg-primaryShiny rounded-xl flex flex-row justify-between gap-4'>
+    <div className='w-full p-[18px] bg-primaryShiny rounded-xl flex flex-row justify-between items-center '>
       <div className='flex items-center gap-3 '>
         {IconComponent &&
-          <div className='bg-[#282828] p-[6px] rounded-md'>
+          <div className='bg-[#282828] p-[4px] rounded-md w-[40px] h-[40px]'>
             <Image src={IconComponent} alt={items.icon} width={32} height={32} />
           </div>
         }

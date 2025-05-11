@@ -1,11 +1,17 @@
 import { Navbar } from '@/components/organisms'
 import { ReactNode } from 'react'
+import { DefaultLayout } from '@/layouts'
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="w-full flex flex-col gap-2 justify-between items-center">
+    <div className="w-full flex flex-col ">
       <Navbar />
-      <main className='w-full pl-[30px] pr-[30px]'>{children}</main>
+      <DefaultLayout>
+        <main className="w-full pt-[82px]">
+          {children}
+        </main>
+      </DefaultLayout>
+
     </div>
   )
 }

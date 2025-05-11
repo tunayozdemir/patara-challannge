@@ -84,7 +84,6 @@ export const columns: ColumnDef<EarningsRow>[] = [
   }
 ]
 
-
 const Dashboard = () => {
   const [tableData, setTableData] = useState<EarningsRow[]>([])
 
@@ -93,16 +92,21 @@ const Dashboard = () => {
       const data: EarningsRow[] = []
 
       for (let i = 0; i < 100; i++) {
+        const randomDaysAgo = Math.floor(Math.random() * 30)
+        const date = new Date()
+        date.setDate(date.getDate() - randomDaysAgo)
+
         data.push({
           id: String(i),
           account: "0x1f20e...e2026",
-          avatar: <Image src={DesignCol} width={40} height={40} alt="avatar" className="rounded-full" />,
+          avatar: <Image src={DesignCol} width={24} height={24} alt="avatar" className="rounded-full" />,
           amountIn: "1,000.00 SUI",
           amountOut: "2,500.00 USDC",
           price: "$2.50",
           value: "$2,500.00",
           earnedFee: "$0.05",
-          time: `${Math.floor(Math.random() * 5) + 1} day ago`
+          time: `${randomDaysAgo} day ago`,
+          date: date.toISOString(), // ✅ eklendi
         })
       }
 
@@ -114,15 +118,15 @@ const Dashboard = () => {
 
   return (
     <div className='w-full flex flex-col gap-10'>
-      <div className='w-full flex flex-row gap-3 flex-3'>
-        <ReferAndEarn />
-        <div className='w-full flex flex-row gap-3 flex-3'>
 
-          <div className='w-full flex flex-2 flex-col gap-7'>
-            {summaryData.map((item, index) => (
-              <SummryCard key={index} items={item} />
-            ))}
-          </div>
+      <div className="w-full flex  flex-col xl:flex-row gap-6">
+        <div className="xl:md:w-5/6 w-full">
+          <ReferAndEarn />
+        </div>
+        <div className="w-full xl:md:w-1/4 flex flex-col gap-[9px]">
+          {summaryData.map((item, index) => (
+            <SummryCard key={index} items={item} />
+          ))}
         </div>
       </div>
       <div className='mb-10 '>
