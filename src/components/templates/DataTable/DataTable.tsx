@@ -94,13 +94,13 @@ export default function DataTable<TData, TValue>({ columns, data, }: DataTablePr
               key={f}
               variant={filter === f ? "default" : 'select'}
               onClick={() => setFilter(f as any)}
-              className="border-none w-[36px] h-[32px]"
+              className="border-none w-[36px] h-[32px] rounded-md"
             >
               {f.toUpperCase()}
             </Button>
           ))}
           <Button
-            className="border-none w-[36px] h-[32px]"
+            className="border-none w-[36px] h-[32px] rounded-md"
             variant={filter ? 'select' : 'default'}
             onClick={() => setFilter(null)}>
             ALL
