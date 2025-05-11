@@ -33,13 +33,13 @@ export default function DataTable<TData, TValue>({ columns, data, }: DataTablePr
     const filtered = data.filter((item: any) => {
       const itemTime = new Date(item.date).getTime()
       switch (filter) {
-        case "1g":
+        case "1D":
           return now - itemTime <= 86400000
-        case "1h":
+        case "1W":
           return now - itemTime <= 3600000
-        case "1a":
+        case "1M":
           return now - itemTime <= 604800000
-        case "1y":
+        case "1Y":
           return now - itemTime <= 31536000000
         default:
           return true
