@@ -13,6 +13,8 @@ export { default as TotalReferralPoints } from './SummryCard/TotalReferralPoints
 export { default as Referrals } from './SummryCard/Referrals.svg'
 export { default as ArrowRight } from './table/ArrowRight.svg'
 export { default as ArrowLeft } from './table/ArrowLeft.svg'
+export {default as DesignCol} from './table/design.svg'
+
 
 // bg icons
 export { default as A } from './bg/A.svg'

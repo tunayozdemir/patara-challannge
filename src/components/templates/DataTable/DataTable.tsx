@@ -19,7 +19,7 @@ interface DataTableProps<TData, TValue> {
 export default function DataTable<TData, TValue>({ columns, data, }: DataTableProps<TData, TValue>) {
 
   const [pageSize, setPageSize] = React.useState(10)
-  const [filter, setFilter] = React.useState<"1D" | "1W" | "1M" | "1Y" | null>(null)
+  const [filter, setFilter] = React.useState<"1d" | "1w" | "1m" | "1y" | null>(null)
   const [filteredData, setFilteredData] = React.useState(data)
 
   React.useEffect(() => {
@@ -33,13 +33,13 @@ export default function DataTable<TData, TValue>({ columns, data, }: DataTablePr
     const filtered = data.filter((item: any) => {
       const itemTime = new Date(item.date).getTime()
       switch (filter) {
-        case "1D":
+        case "1d":
           return now - itemTime <= 86400000
-        case "1W":
+        case "1w":
           return now - itemTime <= 3600000
-        case "1M":
+        case "1m":
           return now - itemTime <= 604800000
-        case "1Y":
+        case "1y":
           return now - itemTime <= 31536000000
         default:
           return true
@@ -87,30 +87,38 @@ export default function DataTable<TData, TValue>({ columns, data, }: DataTablePr
     <div className="space-y-4 rounded-2xl">
       {/* FİLTRE BUTONLARI */}
       <div className="flex items-center justify-between mb-4">
-        <div className="text-white font-medium text-sm sm:text-base">Earnings</div>
-        <div className="flex gap-2">
-          {["1D", "1W", "1M", "1Y"].map((f) => (
+        <div className="text-white font-medium text-[24px]">Earnings</div>
+        <div className="flex gap-0 bg-primaryShiny p-[4px] rounded-xl">
+          {["1d", "1w", "1m", "1y"].map((f) => (
             <Button
               key={f}
-              variant={filter === f ? "default" : "outline"}
+              variant={filter === f ? "default" : 'select'}
               onClick={() => setFilter(f as any)}
+              className="border-none w-[36px] h-[32px]"
             >
               {f.toUpperCase()}
             </Button>
           ))}
-          <Button onClick={() => setFilter(null)}>ALL</Button>
+          <Button
+            className="border-none w-[36px] h-[32px]"
+            variant={filter ? 'select' : 'default'}
+            onClick={() => setFilter(null)}>
+            ALL
+          </Button>
         </div>
       </div>
 
       {/* TABLO */}
-      <div className="rounded-xl bg-[#181818] p-5  ">
+      <div className="rounded-xl bg-primaryShiny p-5 ">
         <Table className="border-separate border-spacing-y-2 w-full [&_th]:bg-transparent [&_td]:bg-[#282828] [&_td]:text-white [&_th]:text-white rounded-xl">
-          <TableHeader>
+          <TableHeader >
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} >
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
-                    {flexRender(header.column.columnDef.header, header.getContext())}
+                  <TableHead key={header.id} >
+                    <div key={header.id} className="px-4 py-2 text-[#808080] font-medium text-[12px]">
+                      {flexRender(header.column.columnDef.header, header.getContext())}
+                    </div>
                   </TableHead>
                 ))}
               </TableRow>
@@ -124,7 +132,7 @@ export default function DataTable<TData, TValue>({ columns, data, }: DataTablePr
               return (
                 <TableRow
                   key={row.id}
-                  className={`h-14 rounded-2xl bg-[#282828] ${isFirst ? "rounded-t-xl" : ""
+                  className={`h-[72px] rounded-2xl bg-[#282828] ${isFirst ? "rounded-t-xl" : ""
                     } ${isLast ? "rounded-b-xl" : ""} overflow-hidden`}
                 >
                   {row.getVisibleCells().map((cell, cellIndex, cells) => {
@@ -135,7 +143,7 @@ export default function DataTable<TData, TValue>({ columns, data, }: DataTablePr
                       <TableCell
                         key={cell.id}
                         className={cn(
-                          "text-white px-4 py-3 bg-[#282828]",
+                          "text-white px-4 py-3 bg-[#282828] h-[72px]",
                           isFirstCell && "rounded-l-2xl",
                           isLastCell && "rounded-r-2xl"
                         )}
@@ -163,15 +171,15 @@ export default function DataTable<TData, TValue>({ columns, data, }: DataTablePr
               table.setPageSize(newSize)
             }}
           >
-            <SelectTrigger className="w-[160px] h-[40px] rounded-full border border-gray-700 bg-[#1F1F1F] text-sm text-white px-4">
+            <SelectTrigger className="w-[139px] h-[40px] rounded-xl border border-gray-700 bg-[#1F1F1F] text-sm text-white px-3 text-[14px] flex items-center justify-between">
               <SelectValue placeholder="10 Transaction" />
             </SelectTrigger>
-            <SelectContent className="bg-black">
+            <SelectContent className="bg-black rounded-2xl flex justify-between w-[150px]">
               {[10, 20, 30, 50].map((size) => (
                 <SelectItem
                   key={size}
                   value={String(size)}
-                  className="px-4 py-2 text-sm bg-[#2A2A2A]"
+                  className=" px-4 py-2 text-sm bg-[#2A2A2A] rounded-[0] cursor-pointer"
                 >
                   {size} Transaction
                 </SelectItem>

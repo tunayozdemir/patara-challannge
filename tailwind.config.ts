@@ -24,7 +24,8 @@ const config: Config = {
 				secondary: 'rgba(40, 40, 40, 1)',
 				primary: 'rgba(56, 56, 56, 1)',
 				primaryDark: 'rgba(24, 24, 24, 1)',
-				primaryLight: 'rgba(150, 150, 150, 1)'
+				primaryLight: 'rgba(150, 150, 150, 1)',
+				primaryShiny: '#181818',
 			},
 			keyframes: {
 				'pulse-glow': {

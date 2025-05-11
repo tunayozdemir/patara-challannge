@@ -4,7 +4,7 @@ import {ReferralLink} from '@/components/molecules'
 
 const ReferAndEarn = () => {
   return (
-    <div className='w-full bg-[#181818] rounded-xl p-[40px] pt-[20px] pb-[20px] flex flex-row gap-3  '>
+    <div className='w-full bg-primaryShiny rounded-xl p-[40px] pt-[20px] pb-[20px] flex flex-row gap-3  '>
       <div className=' flex flex-col gap-20'>
         <div>
           <span className='text-[32px] text-[#FFFFFF]'>Refer and Earn</span>
