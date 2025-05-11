@@ -16,12 +16,10 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 
-export default function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+export default function DataTable<TData, TValue>({ columns, data, }: DataTableProps<TData, TValue>) {
+
   const [pageSize, setPageSize] = React.useState(10)
-  const [filter, setFilter] = React.useState<"1g" | "1h" | "1a" | "1y" | null>(null)
+  const [filter, setFilter] = React.useState<"1D" | "1W" | "1M" | "1Y" | null>(null)
   const [filteredData, setFilteredData] = React.useState(data)
 
   React.useEffect(() => {
@@ -63,7 +61,6 @@ export default function DataTable<TData, TValue>({
     },
   })
 
-
   function getPaginationRange(current: number, total: number) {
     const delta = 1
     const range: (number | "...")[] = []
@@ -73,9 +70,9 @@ export default function DataTable<TData, TValue>({
 
     for (let i = 1; i <= total; i++) {
       if (
-        i <= 3 || // first 3 pages
-        i > total - 3 || // last 3 pages
-        (i >= current - delta && i <= current + delta) // current ±1
+        i <= 3 ||
+        i > total - 3 ||
+        (i >= current - delta && i <= current + delta)
       ) {
         range.push(i)
       } else if (range[range.length - 1] !== "...") {
@@ -218,13 +215,7 @@ export default function DataTable<TData, TValue>({
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            <Image
-              width={28}
-              height={28}
-              src={ArrowRight}
-              alt="ArrowLeft"
-              className="rotate-180"
-            />
+            <Image width={28} height={28} src={ArrowRight} alt="ArrowLeft" className="rotate-180" />
           </Button>
 
           {/* Sonraki */}
@@ -235,12 +226,7 @@ export default function DataTable<TData, TValue>({
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            <Image
-              width={28}
-              height={28}
-              src={ArrowRight}
-              alt="ArrowRight"
-            />
+            <Image width={28} height={28} src={ArrowRight} alt="ArrowRight" />
           </Button>
         </div>
       </div>
