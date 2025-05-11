@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import Image from 'next/image'
 import { ReferAndEarn } from '@/components/templates'
 import { SummryCard } from '@/components/molecules'
@@ -9,6 +9,8 @@ import { ColumnDef } from "@tanstack/react-table"
 import { DataTable } from "@/components/templates"
 import { EarningsRow } from "@/components/templates/DataTable/types"
 import { DesignCol } from '@/assets/icons'
+
+import { useSearchContext } from '@/context/ContextProvider'
 
 const summaryData = [
   { id: '1', icon: 'TotalEarnedFee', title: 'Total Earned Fee', value: '$1,000.00', button: false },
@@ -86,6 +88,7 @@ export const columns: ColumnDef<EarningsRow>[] = [
 
 const Dashboard = () => {
   const [tableData, setTableData] = useState<EarningsRow[]>([])
+  const { searchTerm } = useSearchContext()
 
   useEffect(() => {
     const generateMockData = (): EarningsRow[] => {
@@ -98,7 +101,7 @@ const Dashboard = () => {
 
         data.push({
           id: String(i),
-          account: "0x1f20e...e2026",
+          account: `ABC${i}`,
           avatar: <Image src={DesignCol} width={24} height={24} alt="avatar" className="rounded-full" />,
           amountIn: "1,000.00 SUI",
           amountOut: "2,500.00 USDC",
@@ -116,6 +119,12 @@ const Dashboard = () => {
     setTableData(generateMockData())
   }, [])
 
+  const filteredData = useMemo(() => {
+    return tableData.filter(row =>
+      row.account.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  }, [tableData, searchTerm])
+
   return (
     <div className='w-full flex flex-col gap-10'>
 
@@ -130,7 +139,7 @@ const Dashboard = () => {
         </div>
       </div>
       <div className='mb-10 '>
-        <DataTable columns={columns} data={tableData} />
+        <DataTable columns={columns} data={filteredData} />
       </div>
     </div>
   )

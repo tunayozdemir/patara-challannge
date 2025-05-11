@@ -1,9 +1,8 @@
-// src/pages/_app.tsx
-
+import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import DashboardLayout from '@/layouts/DashboardLayout'
 import { BackgroundAnimated } from '@/components/organisms'
-import '@/styles/globals.css'
+import { ContextProvider } from '@/context/ContextProvider'
 
 export default function MyApp({ Component, pageProps, router }: AppProps) {
   const isDashboard = router.pathname.startsWith('/dashboard')
@@ -12,9 +11,11 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <>
       {!isDashboard && <BackgroundAnimated />}
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <ContextProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ContextProvider>
     </>
   )
 }

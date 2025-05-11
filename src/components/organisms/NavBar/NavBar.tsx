@@ -4,6 +4,8 @@ import clsx from "clsx"
 import { Button } from "@/components/atoms/button"
 import { HamburgerButton } from '@/components/molecules'
 import { LogoText, InputSearch, NotificationBell, Setting } from '@/components/atoms'
+import { useSearchContext } from '@/context/ContextProvider'
+
 
 type NavbarProps = {
   onConnect?: () => void
@@ -11,6 +13,7 @@ type NavbarProps = {
 
 const Navbar: React.FC<NavbarProps> = ({ onConnect }) => {
   const [scrolled, setScrolled] = useState(false)
+  const { setSearchTerm } = useSearchContext()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,6 +53,7 @@ const Navbar: React.FC<NavbarProps> = ({ onConnect }) => {
             className="w-full "
             placeholder="Enter Accounts, Platforms, NFTs, Token"
             type="text"
+            onChange={(e) => setSearchTerm(e.target.value)} 
           />
         </div>
 
