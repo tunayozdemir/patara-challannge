@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import { Navbar } from '@/components/organisms'
 import { ConnectWalet } from '@/components/templates'
-import { DefaultLayout } from '@/layouts'
 
 export default function LoginPage() {
   const router = useRouter()

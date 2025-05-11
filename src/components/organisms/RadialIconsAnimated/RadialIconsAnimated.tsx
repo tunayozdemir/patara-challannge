@@ -5,12 +5,18 @@ import { RadialIcons } from '@/components/molecules'
 const RadialIconsAnimated = () => {
   return (
     <motion.div
-      initial={{ scale: 0.9, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
+      initial={{ scale: 0.95, opacity: 0.8 }}
+      animate={{ scale: [0.95, 1, 0.95], opacity: [0.8, 1, 0.8] }}
+      transition={{
+        duration: 2,
+        repeat: Infinity,
+        repeatType: 'loop',
+        ease: 'easeInOut'
+      }}
     >
       <RadialIcons />
     </motion.div>
   )
 }
+
 export default RadialIconsAnimated
