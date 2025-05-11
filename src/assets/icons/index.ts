@@ -6,6 +6,11 @@ export { default as SearchIcon } from './searchIcon.svg';
 export { default as macK } from './F.svg';
 export { default as Bell } from './bell.svg'
 export { default as Setting } from './setting.svg'
+export { default as ShareFat } from './ShareFat.svg'
+export { default as TotalEarnedFee } from './SummryCard/TotalEarnedFee.svg'
+export { default as UnclaimedFee } from './SummryCard/UnclaimedFee.svg'
+export { default as TotalReferralPoints } from './SummryCard/TotalReferralPoints.svg'
+export { default as Referrals } from './SummryCard/Referrals.svg'
 
 // bg icons
 export { default as A } from './bg/A.svg'

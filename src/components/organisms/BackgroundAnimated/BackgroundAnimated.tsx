@@ -14,7 +14,7 @@ const iconPositions = [
   { icon: 'A', xRatio: 0.32, yRatio: 0.28 },
 ]
 
-export const BackgroundIcons = () => {
+const BackgroundAnimated = () => {
   const [mounted, setMounted] = useState(false)
   const [viewport, setViewport] = useState({ width: 0, height: 0 })
 
@@ -81,3 +81,5 @@ export const BackgroundIcons = () => {
     </div>
   )
 }
+
+export default BackgroundAnimated

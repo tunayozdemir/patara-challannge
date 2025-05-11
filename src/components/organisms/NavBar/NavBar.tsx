@@ -6,7 +6,11 @@ import { HamburgerButton } from '@/components/molecules'
 import { LogoText, InputSearch, NotificationBell, Setting } from '@/components/atoms'
 import { navHeaderClass, navLeftClass, navButtonWrapperClass } from './classnames'
 
-const NavLinks = () => {
+type NavbarProps = {
+  onConnect?: () => void
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onConnect }) => {
   return (
     <header className={navHeaderClass}>
       <div className={navLeftClass}>
@@ -18,11 +22,16 @@ const NavLinks = () => {
         <div className={clsx(navButtonWrapperClass, 'flex items-center gap-2')}>
           <NotificationBell />
           <Setting />
-          <Button className='h-[40px] max-w-[170px]' variant="customBlue" text='Connect/Sign in' />
+          <Button
+            onClick={onConnect}
+            className='h-[40px] max-w-[170px]'
+            variant="customBlue"
+            text='Connect/Sign in'
+          />
         </div>
       </div>
     </header>
   )
 }
 
-export default NavLinks
+export default Navbar
