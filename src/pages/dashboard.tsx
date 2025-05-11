@@ -23,7 +23,7 @@ export const columns: ColumnDef<EarningsRow>[] = [
     header: () => <span className="text-[#A1A1AA] text-[12px]">ACCOUNT</span>,
     cell: ({ row }) => (
       <div className="flex items-center gap-2 text-[14px]">
-        <Image src={DesignCol} width={24} height={24} alt="avatar" className="rounded-full" />
+        <Image src={DesignCol} width={40} height={40} alt="avatar" className="rounded-full" />
         <span className="text-foreground">{row.original.account}</span>
       </div>
     )
