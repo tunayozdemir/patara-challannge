@@ -6,17 +6,17 @@ import { Fragment } from "react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from '@/assets/icons'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select"
-import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable, } from "@tanstack/react-table"
-
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table"
+import { motion } from "framer-motion" // 👈 Yeni eklenen import
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
 }
 
-export default function DataTable<TData, TValue>({ columns, data, }: DataTableProps<TData, TValue>) {
+export default function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
 
   const [pageSize, setPageSize] = React.useState(10)
   const [filter, setFilter] = React.useState<"1d" | "1w" | "1m" | "1y" | null>(null)
@@ -128,8 +128,11 @@ export default function DataTable<TData, TValue>({ columns, data, }: DataTablePr
 
             <TableBody>
               {table.getRowModel().rows.map((row, rowIndex) => (
-                <TableRow
+                <motion.tr
                   key={row.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: rowIndex * 0.05, duration: 0.3 }}
                   className="h-[72px] bg-[#282828] rounded-xl overflow-hidden"
                 >
                   {row.getVisibleCells().map((cell, cellIndex, cells) => (
@@ -144,13 +147,12 @@ export default function DataTable<TData, TValue>({ columns, data, }: DataTablePr
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
-                </TableRow>
+                </motion.tr>
               ))}
             </TableBody>
           </Table>
         </div>
       </div>
-
 
       {/* ALT BAR */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 min-h-6">
@@ -208,7 +210,6 @@ export default function DataTable<TData, TValue>({ columns, data, }: DataTablePr
 
         {/* ÖNCEKİ / SONRAKİ */}
         <div className="flex items-center gap-2">
-          {/* Önceki */}
           <Button
             className="p-[5px] text-white h-[40px]"
             variant="outline"
@@ -219,7 +220,6 @@ export default function DataTable<TData, TValue>({ columns, data, }: DataTablePr
             <Image width={28} height={28} src={ArrowRight} alt="ArrowLeft" className="rotate-180" />
           </Button>
 
-          {/* Sonraki */}
           <Button
             className="p-[5px] h-[40px]"
             variant="outline"

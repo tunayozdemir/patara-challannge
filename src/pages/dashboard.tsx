@@ -4,6 +4,7 @@ import React, { useEffect, useState, useMemo } from 'react'
 import Image from 'next/image'
 import { ReferAndEarn } from '@/components/templates'
 import { SummryCard } from '@/components/molecules'
+import { motion } from 'framer-motion'
 
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTable } from "@/components/templates"
@@ -128,19 +129,39 @@ const Dashboard = () => {
   return (
     <div className='w-full flex flex-col gap-10'>
 
-      <div className="w-full flex  flex-col xl:flex-row gap-6">
+      {/* Üst Bölüm */}
+      <motion.div
+        className="w-full flex flex-col xl:flex-row gap-6"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      >
         <div className="xl:md:w-5/6 w-full">
           <ReferAndEarn />
         </div>
         <div className="w-full xl:md:w-1/4 flex flex-col gap-[9px]">
           {summaryData.map((item, index) => (
-            <SummryCard key={index} items={item} />
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 * index, duration: 0.5 }}
+            >
+              <SummryCard items={item} />
+            </motion.div>
           ))}
         </div>
-      </div>
-      <div className='mb-10 '>
+      </motion.div>
+
+      {/* Tablo */}
+      <motion.div
+        className='mb-10'
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8, duration: 0.6 }}
+      >
         <DataTable columns={columns} data={filteredData} />
-      </div>
+      </motion.div>
     </div>
   )
 }
