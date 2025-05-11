@@ -1,29 +1,15 @@
 "use client"
 
 import * as React from "react"
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  getPaginationRowModel,
-  useReactTable,
-} from "@tanstack/react-table"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import Image from "next/image"
+import { Fragment } from "react"
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { ArrowRight } from '@/assets/icons'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select"
+import { ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable, } from "@tanstack/react-table"
+
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -38,7 +24,6 @@ export default function DataTable<TData, TValue>({
   const [filter, setFilter] = React.useState<"1g" | "1h" | "1a" | "1y" | null>(null)
   const [filteredData, setFilteredData] = React.useState(data)
 
-  // client-side filter (SSR'den sonra hesaplanır)
   React.useEffect(() => {
     if (!filter) {
       setFilteredData(data)
@@ -51,13 +36,13 @@ export default function DataTable<TData, TValue>({
       const itemTime = new Date(item.date).getTime()
       switch (filter) {
         case "1g":
-          return now - itemTime <= 86400000 // 1 gün
+          return now - itemTime <= 86400000
         case "1h":
-          return now - itemTime <= 3600000 // 1 saat
+          return now - itemTime <= 3600000
         case "1a":
-          return now - itemTime <= 604800000 // 1 hafta
+          return now - itemTime <= 604800000
         case "1y":
-          return now - itemTime <= 31536000000 // 1 yıl
+          return now - itemTime <= 31536000000
         default:
           return true
       }
@@ -78,12 +63,36 @@ export default function DataTable<TData, TValue>({
     },
   })
 
+
+  function getPaginationRange(current: number, total: number) {
+    const delta = 1
+    const range: (number | "...")[] = []
+
+    const left = 1
+    const right = total
+
+    for (let i = 1; i <= total; i++) {
+      if (
+        i <= 3 || // first 3 pages
+        i > total - 3 || // last 3 pages
+        (i >= current - delta && i <= current + delta) // current ±1
+      ) {
+        range.push(i)
+      } else if (range[range.length - 1] !== "...") {
+        range.push("...")
+      }
+    }
+
+    return range
+  }
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 rounded-2xl">
       {/* FİLTRE BUTONLARI */}
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between mb-4">
+        <div className="text-white font-medium text-sm sm:text-base">Earnings</div>
         <div className="flex gap-2">
-          {["1g", "1h", "1a", "1y"].map((f) => (
+          {["1D", "1W", "1M", "1Y"].map((f) => (
             <Button
               key={f}
               variant={filter === f ? "default" : "outline"}
@@ -92,13 +101,13 @@ export default function DataTable<TData, TValue>({
               {f.toUpperCase()}
             </Button>
           ))}
-          <Button variant="ghost" onClick={() => setFilter(null)}>Temizle</Button>
+          <Button onClick={() => setFilter(null)}>ALL</Button>
         </div>
       </div>
 
       {/* TABLO */}
-      <div className="rounded-md border">
-        <Table>
+      <div className="rounded-xl bg-[#181818] p-5  ">
+        <Table className="border-separate border-spacing-y-2 w-full [&_th]:bg-transparent [&_td]:bg-[#282828] [&_td]:text-white [&_th]:text-white rounded-xl">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -111,21 +120,42 @@ export default function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
+            {table.getRowModel().rows.map((row, rowIndex) => {
+              const isFirst = rowIndex === 0
+              const isLast = rowIndex === table.getRowModel().rows.length - 1
+
+              return (
+                <TableRow
+                  key={row.id}
+                  className={`h-14 rounded-2xl bg-[#282828] ${isFirst ? "rounded-t-xl" : ""
+                    } ${isLast ? "rounded-b-xl" : ""} overflow-hidden`}
+                >
+                  {row.getVisibleCells().map((cell, cellIndex, cells) => {
+                    const isFirstCell = cellIndex === 0
+                    const isLastCell = cellIndex === cells.length - 1
+
+                    return (
+                      <TableCell
+                        key={cell.id}
+                        className={cn(
+                          "text-white px-4 py-3 bg-[#282828]",
+                          isFirstCell && "rounded-l-2xl",
+                          isLastCell && "rounded-r-2xl"
+                        )}
+                      >
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    )
+                  })}
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
       </div>
 
       {/* ALT BAR */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 min-h-6">
         {/* SAYFA BOYUTU */}
         <div className="flex items-center gap-2">
           <Select
@@ -142,10 +172,9 @@ export default function DataTable<TData, TValue>({
             <SelectContent className="bg-black">
               {[10, 20, 30, 50].map((size) => (
                 <SelectItem
-
                   key={size}
                   value={String(size)}
-                  className="px-4 py-2 text-sm bg-[#2A2A2A] bg-back"
+                  className="px-4 py-2 text-sm bg-[#2A2A2A]"
                 >
                   {size} Transaction
                 </SelectItem>
@@ -155,37 +184,63 @@ export default function DataTable<TData, TValue>({
         </div>
 
         {/* SAYFALAMA */}
-        <div className="flex flex-wrap items-center justify-center gap-1">
-          {Array.from({ length: table.getPageCount() }, (_, i) => (
-            <Button
-              key={i}
-              variant={i === table.getState().pagination.pageIndex ? "default" : "outline"}
-              size="sm"
-              onClick={() => table.setPageIndex(i)}
-              className="px-3"
-            >
-              {i + 1}
-            </Button>
+        <div className="flex items-center justify-center gap-2">
+          {getPaginationRange(table.getState().pagination.pageIndex + 1, table.getPageCount()).map((page, idx) => (
+            <Fragment key={idx}>
+              {page === "..." ? (
+                <div className="w-10 h-10 flex items-center justify-center rounded-xl border border-[#3a3a3a] text-white text-lg">
+                  &#x2022;&#x2022;&#x2022;
+                </div>
+              ) : (
+                <button
+                  onClick={() => table.setPageIndex(page - 1)}
+                  className={cn(
+                    "w-10 h-10 flex items-center justify-center rounded-xl text-white text-base border transition-colors",
+                    page - 1 === table.getState().pagination.pageIndex
+                      ? "bg-[#2A2A2A] border-[#3a3a3a]"
+                      : "border-[#3a3a3a] hover:bg-[#2A2A2A]"
+                  )}
+                >
+                  {page}
+                </button>
+              )}
+            </Fragment>
           ))}
         </div>
 
         {/* ÖNCEKİ / SONRAKİ */}
         <div className="flex items-center gap-2">
+          {/* Önceki */}
           <Button
+            className="p-[5px] text-white h-[40px]"
             variant="outline"
             size="sm"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Önceki
+            <Image
+              width={28}
+              height={28}
+              src={ArrowRight}
+              alt="ArrowLeft"
+              className="rotate-180"
+            />
           </Button>
+
+          {/* Sonraki */}
           <Button
+            className="p-[5px] h-[40px]"
             variant="outline"
             size="sm"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Sonraki
+            <Image
+              width={28}
+              height={28}
+              src={ArrowRight}
+              alt="ArrowRight"
+            />
           </Button>
         </div>
       </div>

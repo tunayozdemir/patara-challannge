@@ -11,6 +11,8 @@ export { default as TotalEarnedFee } from './SummryCard/TotalEarnedFee.svg'
 export { default as UnclaimedFee } from './SummryCard/UnclaimedFee.svg'
 export { default as TotalReferralPoints } from './SummryCard/TotalReferralPoints.svg'
 export { default as Referrals } from './SummryCard/Referrals.svg'
+export { default as ArrowRight } from './table/ArrowRight.svg'
+export { default as ArrowLeft } from './table/ArrowLeft.svg'
 
 // bg icons
 export { default as A } from './bg/A.svg'

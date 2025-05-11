@@ -74,10 +74,11 @@ const Dashboard = () => {
   }, [])
 
   return (
-    <div className='w-full flex flex-col gap-3'>
+    <div className='w-full flex flex-col gap-10'>
       <div className='w-full flex flex-row gap-3 flex-3'>
+         <ReferAndEarn />
         <div className='w-full flex flex-row gap-3 flex-3'>
-          <ReferAndEarn />
+         
           <div className='w-full flex flex-2 flex-col gap-7'>
             {summaryData.map((item, index) => (
               <SummryCard key={index} items={item} />
@@ -85,8 +86,9 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-
-      <DataTable columns={columns} data={tableData} />
+      <div className='mb-10 '>
+        <DataTable columns={columns} data={tableData} />
+      </div>
     </div>
   )
 }
