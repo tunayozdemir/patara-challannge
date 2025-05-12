@@ -1,20 +1,24 @@
 "use client"
 import clsx from "clsx"
-import Image from "next/image"
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Button } from "@/components/atoms/button"
 import { HamburgerButton } from '@/components/molecules'
 import { LogoText, InputSearch, NotificationBell, Setting } from '@/components/atoms'
 import { useSearchContext } from '@/context/ContextProvider'
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { useAuthStore } from '@/store/useAuthStore'
 import { User } from '@/assets/icons'
-
+import { SelectBox } from '@/components/molecules'
 
 type NavbarProps = {
   onClick?: () => void
 }
+
+const items = [
+  { value: "profile", label: "Profile" },
+  { value: "settings", label: "Settings" },
+  { value: "logout", label: "Logout" },
+];
 
 const Navbar: React.FC<NavbarProps> = ({ onClick }) => {
   const router = useRouter()
@@ -72,20 +76,12 @@ const Navbar: React.FC<NavbarProps> = ({ onClick }) => {
           <Setting />
 
           {isLoggedIn ? (
-            <Select onValueChange={handleSelect}>
-              <SelectTrigger className="w-[170px] h-[40px] rounded-xl border border-gray-700 bg-[#1F1F1F] text-white px-2 flex items-center gap-2">
-                <div className="flex items-center gap-2">
-                  <Image width={32} height={32} src={User} alt="Design"/>
-                  <span className="text-sm">@patara.sui</span>
-                </div>
-              </SelectTrigger>
-
-              <SelectContent className="bg-black rounded-xl w-[170px] text-white">
-                <SelectItem value="profile">Profile</SelectItem>
-                <SelectItem value="settings">Settings</SelectItem>
-                <SelectItem value="logout">Logout</SelectItem>
-              </SelectContent>
-            </Select>
+            <SelectBox
+              userImage={User}
+              username="@patara.sui"
+              onValueChange={handleSelect}
+              items={items}
+            />
           ) : (
             <Button
               onClick={onClick}
