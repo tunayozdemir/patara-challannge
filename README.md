@@ -56,6 +56,8 @@
 -Ekran açıldığında componentler yukarıdan aşağıya dökülerek gelir.
 -"Connect/Sing in" butonu login olunduktan sonra kullanıcı bilgilerinin ve image ın bulunduğu selectbox ile değişir.
 -Sayfa içerisinde de bir takım animasyonlar eklenmiştir. 
+-Your Referral Link lanı copy butona tıklandıktan sonra Share butonu aktif olur.
+-Share butonuna tıklandığında kopyalanmış değeri tarayıcıda yeni sekme açarak arama alanına ekler.
 -Örneğin; tabloda sayfa numaralırını değiştirdiğinizde bilgiler yukardan aşağıya dökülerek gelir.
 -Tablonun tüm filtreleri ve paginatin işlemleri çalışır durumdadır.
 -Ayrıca header da bulunan serachbox ile tabloda 'ACCOUNT' colonuna göre arama işlemi yapmaktadır.
