@@ -1,15 +1,18 @@
 import React, { MouseEvent, useState } from "react";
+import CreateRadialGradient from "@/utils/createRadialGradientMouseEffects";
+import GlowEffect from "@/utils/glowEffect";
 import { useRouter } from 'next/router'
 import { Button } from "@/components/atoms/button";
 import { RadialIconsAnimated } from '@/components/organisms'
-import CreateRadialGradient from "@/utils/createRadialGradientMouseEffects";
-import GlowEffect from "@/utils/glowEffect";
+import { useAuthStore } from '@/store/useAuthStore'
 
 const ConnectWalet = () => {
   const router = useRouter()
   const [radialBackground, setRadialBackground] = useState<string>("none");
+    const login = useAuthStore(state => state.login)
 
   const handleLogin = () => {
+    login()
     router.push('/dashboard')
   }
     const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
