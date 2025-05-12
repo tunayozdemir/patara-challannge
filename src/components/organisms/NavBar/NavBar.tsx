@@ -1,5 +1,6 @@
 "use client"
 import clsx from "clsx"
+import Image from "next/image"
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Button } from "@/components/atoms/button"
@@ -8,6 +9,7 @@ import { LogoText, InputSearch, NotificationBell, Setting } from '@/components/a
 import { useSearchContext } from '@/context/ContextProvider'
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { useAuthStore } from '@/store/useAuthStore'
+import { User } from '@/assets/icons'
 
 
 type NavbarProps = {
@@ -72,10 +74,14 @@ const Navbar: React.FC<NavbarProps> = ({ onClick }) => {
 
           {isLoggedIn ? (
             <Select onValueChange={handleSelect}>
-              <SelectTrigger className="w-[170px] h-[40px] rounded-xl border border-gray-700 bg-[#1F1F1F] text-sm text-white px-3 text-[14px]">
-                <SelectValue placeholder="User Options" />
+              <SelectTrigger className="w-[170px] h-[40px] rounded-xl border border-gray-700 bg-[#1F1F1F] text-white px-2 flex items-center gap-2">
+                <div className="flex items-center gap-2">
+                  <Image width={32} height={32} src={User} alt="Design"/>
+                  <span className="text-sm">@patara.sui</span>
+                </div>
               </SelectTrigger>
-              <SelectContent className="bg-black rounded-xl w-[170px]">
+
+              <SelectContent className="bg-black rounded-xl w-[170px] text-white">
                 <SelectItem value="profile">Profile</SelectItem>
                 <SelectItem value="settings">Settings</SelectItem>
                 <SelectItem value="logout">Logout</SelectItem>
