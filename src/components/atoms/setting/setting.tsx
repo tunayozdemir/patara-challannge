@@ -9,10 +9,7 @@ const NotificationBell = () => {
   const controls = useAnimation()
 
   const handleClick = async () => {
-    // Her tıklamada animasyonu sıfırdan başlat
     controls.set({ rotate: 0 })
-
-    // Sadece 10 derece döndür
     await controls.start({
       rotate: 30,
       transition: { duration: 0.2, ease: "easeInOut" },

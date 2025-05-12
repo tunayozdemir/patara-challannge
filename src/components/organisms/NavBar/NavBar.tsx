@@ -18,11 +18,10 @@ type NavbarProps = {
 
 const Navbar: React.FC<NavbarProps> = ({ onClick }) => {
   const router = useRouter()
-  const { setSearchTerm, } = useSearchContext()
-  const [scrolled, setScrolled] = useState(false)
-
   const isLoggedIn = useAuthStore(state => state.isLoggedIn)
   const logout = useAuthStore(state => state.logout)
+  const { setSearchTerm, } = useSearchContext()
+  const [scrolled, setScrolled] = useState(false)
 
 
   useEffect(() => {
@@ -98,8 +97,7 @@ const Navbar: React.FC<NavbarProps> = ({ onClick }) => {
         </div>
       </div>
     </header>
-
   )
-}
+};
 
-export default Navbar
+export default Navbar;

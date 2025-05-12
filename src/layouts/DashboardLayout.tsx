@@ -11,7 +11,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           {children}
         </main>
       </DefaultLayout>
-
     </div>
   )
 }

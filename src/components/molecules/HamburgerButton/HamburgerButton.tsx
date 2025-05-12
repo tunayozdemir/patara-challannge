@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 import { HamburgerMenu } from "@/assets/icons";
 import Image from "next/image";
 
-
-
 const HamburgerButton = () => {
 
   return (

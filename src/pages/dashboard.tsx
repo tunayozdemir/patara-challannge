@@ -1,5 +1,5 @@
 "use client"
-
+import Head from 'next/head'
 import React, { useEffect, useState, useMemo } from 'react'
 import Image from 'next/image'
 import { ReferAndEarn } from '@/components/templates'
@@ -128,7 +128,10 @@ const Dashboard = () => {
 
   return (
     <div className='w-full flex flex-col gap-10'>
-
+      <Head>
+        <title>Patara App | Dashboard</title>
+        <meta name="description" content="Patara App - Hoşgeldiniz" />
+      </Head>
       {/* Üst Bölüm */}
       <motion.div
         className="w-full flex flex-col xl:flex-row gap-6"

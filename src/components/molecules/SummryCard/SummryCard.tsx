@@ -32,7 +32,6 @@ const SummryCard = ({ items }: Props) => {
           <div className='text-[24px] text-white font-semibold'>{items.value}</div>
         </div>
       </div>
-
       {items.button && (
         <Button className='w-[70px] h-[48px] rounded-2xl p-0' variant="customBlue" size="default" full text='Claim' />
       )}
