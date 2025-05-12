@@ -23,7 +23,26 @@ const config: Config = {
 				foreground: 'hsl(var(--foreground))',
 				secondary: 'rgba(40, 40, 40, 1)',
 				primary: 'rgba(56, 56, 56, 1)',
-				primaryLight: 'rgba(150, 150, 150, 1)'
+				primaryDark: 'rgba(24, 24, 24, 1)',
+				primaryLight: 'rgba(150, 150, 150, 1)',
+				primaryShiny: '#181818',
+			},
+			keyframes: {
+				'pulse-glow': {
+					'0%, 100%': {
+						transform: 'scale(1)',
+						opacity: '0.7',
+						filter: 'blur(10px)',
+					},
+					'50%': {
+						transform: 'scale(1.12)',
+						opacity: '1',
+						filter: 'blur(20px)',
+					},
+				},
+			},
+			animation: {
+				'pulse-glow': 'pulse-glow 3.5s ease-in-out infinite',
 			},
 		}
 	},
